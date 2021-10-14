@@ -38,15 +38,30 @@ QString QKeySequence::toString(SequenceFormat format) const
     orig_func = (orig_func_f_type)dlsym(RTLD_NEXT, FUNC_SYMBOL);
     QString result = orig_func(this, format);
     
-    // Table: https://github.com/qt/qtbase/blob/7dd81686e8e9ee86624c5bcca10688cfb360dcb8/src/gui/kernel/qkeysequence.cpp#L73-L94
-    result.replace(QCoreApplication::translate("QShortcut", "Ctrl"), QChar(kCommandUnicode));
+    // Replacements based on table from
+    // https://github.com/qt/qtbase/blob/7dd81686e8e9ee86624c5bcca10688cfb360dcb8/src/gui/kernel/qkeysequence.cpp#L73-L94
+    result.replace(QCoreApplication::translate("QShortcut", "Esc"), QChar(0x238B));
+    result.replace(QCoreApplication::translate("QShortcut", "Tab"), QChar(0x21E5));    
+    result.replace(QCoreApplication::translate("QShortcut", "Backtab"), QChar(0x21E4));
+    result.replace(QCoreApplication::translate("QShortcut", "Backspace"), QChar(0x232B));
+    result.replace(QCoreApplication::translate("QShortcut", "Return"), QChar(0x21B5));
+    result.replace(QCoreApplication::translate("QShortcut", "Enter"), QChar(0x2324));    
+    result.replace(QCoreApplication::translate("QShortcut", "Del"), QChar(0x2326));
+    result.replace(QCoreApplication::translate("QShortcut", "Home"), QChar(0x2196));
+    result.replace(QCoreApplication::translate("QShortcut", "End"), QChar(0x2198));
+    result.replace(QCoreApplication::translate("QShortcut", "Left"), QChar(0x2190));    
+    result.replace(QCoreApplication::translate("QShortcut", "Up"), QChar(0x2191));
+    result.replace(QCoreApplication::translate("QShortcut", "Right"), QChar(0x2192));
+    result.replace(QCoreApplication::translate("QShortcut", "Down"), QChar(0x2193));
+    result.replace(QCoreApplication::translate("QShortcut", "PgUp"), QChar(0x21DE));    
+    result.replace(QCoreApplication::translate("QShortcut", "PgDown"), QChar(0x21DF));
     result.replace(QCoreApplication::translate("QShortcut", "Shift"), QChar(kShiftUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "Ctrl"), QChar(kCommandUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "Meta"), QChar(kControlUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "Alt"), QChar(kOptionUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "CapsLock"), QChar(0x21EA));
+    
     result.replace("+", "");
     
     return(result);
-
-
 }
-
-
-// env LD_PRELOAD=$(readlink -f libQKeySequenceOverride.so.1.0.0) menubar
