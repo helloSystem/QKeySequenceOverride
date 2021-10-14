@@ -1,5 +1,7 @@
 # QKeySequenceOverride
 
+![image](https://user-images.githubusercontent.com/2480569/137368240-56cccc96-e565-43f0-8590-966b467e7f4f.png)
+
 This repo contains a tiny bit (~30 lines) of C++ code which compiles to a `.so` file to dynamically override the `QKeySequence::toString()` function in Qt to represent shortcuts with graphical symbols similar to the Mac.
 
 ## Instructions
