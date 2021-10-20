@@ -61,7 +61,9 @@ QString QKeySequence::toString(SequenceFormat format) const
     result.replace(QCoreApplication::translate("QShortcut", "Alt"), QChar(kOptionUnicode));
     result.replace(QCoreApplication::translate("QShortcut", "CapsLock"), QChar(0x21EA));
     
-    result.replace("+", "");
+    result.replace("++", "_PLUS_");
+    result.replace("+", "");    
+    result.replace("_PLUS_", "+");
     
     return(result);
 }
