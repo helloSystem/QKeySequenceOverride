@@ -17,7 +17,7 @@ CXX           = clang++
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -pthread -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -pthread -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I../../../../local/include/qt5/QtCore -I../../../../local/include/qt5/QtGui -I../../../../local/include/qt5/QtWidgets -I../../../../local/include/qt5 -I. -I../../../../local/include/libdrm -I../../../../local/include -I../../../../local/lib/qt5/mkspecs/freebsd-clang
+INCPATH       = -I. -I. -I../../../../local/include/qt5/QtCore -I../../../../local/include/qt5/QtGui -I../../../../local/include/qt5/QtWidgets -I../../../../local/include/qt5 -I. -I../../../../local/include -I../../../../local/include -I../../../../local/lib/qt5/mkspecs/freebsd-clang
 QMAKE         = /usr/local/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = QKeySequenceOverride1.0.0
-DISTDIR = /usr/home/user/helloSystem/OverrideQtSplashscreen/.tmp/QKeySequenceOverride1.0.0
+DISTDIR = /usr/home/user/helloSystem/QKeySequenceOverride/.tmp/QKeySequenceOverride1.0.0
 LINK          = clang++
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib/qt5 -shared -Wl,-soname,libQKeySequenceOverride.so.1
 LIBS          = $(SUBLIBS) -L/usr/local/lib /usr/local/lib/qt5/libQt5Gui.so /usr/local/lib/qt5/libQt5Core.so -lGL   
@@ -90,7 +90,6 @@ DIST          = ../../../../local/lib/qt5/mkspecs/features/spec_pre.prf \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KCrash.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KDBusAddons.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KDeclarative.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KDEWebKit.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KEmoticons.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KFileMetaData.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KGlobalAccel.pri \
@@ -111,12 +110,12 @@ DIST          = ../../../../local/lib/qt5/mkspecs/features/spec_pre.prf \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KNotifications.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KNTLM.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KParts.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KPlotting.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KQuickImageEditor.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_KRunner.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KScreen.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KService.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_KSyntaxHighlighting.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KTextWidgets.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KUnitConversion.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWallet.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandClient.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandServer.pri \
@@ -311,6 +310,7 @@ DIST          = ../../../../local/lib/qt5/mkspecs/features/spec_pre.prf \
 		../../../../local/lib/qt5/mkspecs/modules/qt_SonnetCore.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_SonnetUi.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_Syndication.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_ThreadWeaver.pri \
 		../../../../local/lib/qt5/mkspecs/features/qt_functions.prf \
 		../../../../local/lib/qt5/mkspecs/features/qt_config.prf \
 		../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.conf \
@@ -399,7 +399,6 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 		../../../../local/lib/qt5/mkspecs/modules/qt_KCrash.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KDBusAddons.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KDeclarative.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KDEWebKit.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KEmoticons.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KFileMetaData.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KGlobalAccel.pri \
@@ -420,12 +419,12 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 		../../../../local/lib/qt5/mkspecs/modules/qt_KNotifications.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KNTLM.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KParts.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KPlotting.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KQuickImageEditor.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_KRunner.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KScreen.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KService.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_KSyntaxHighlighting.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KTextWidgets.pri \
-		../../../../local/lib/qt5/mkspecs/modules/qt_KUnitConversion.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWallet.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandClient.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandServer.pri \
@@ -620,6 +619,7 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 		../../../../local/lib/qt5/mkspecs/modules/qt_SonnetCore.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_SonnetUi.pri \
 		../../../../local/lib/qt5/mkspecs/modules/qt_Syndication.pri \
+		../../../../local/lib/qt5/mkspecs/modules/qt_ThreadWeaver.pri \
 		../../../../local/lib/qt5/mkspecs/features/qt_functions.prf \
 		../../../../local/lib/qt5/mkspecs/features/qt_config.prf \
 		../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.conf \
@@ -681,7 +681,6 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 ../../../../local/lib/qt5/mkspecs/modules/qt_KCrash.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KDBusAddons.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KDeclarative.pri:
-../../../../local/lib/qt5/mkspecs/modules/qt_KDEWebKit.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KEmoticons.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KFileMetaData.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KGlobalAccel.pri:
@@ -702,12 +701,12 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 ../../../../local/lib/qt5/mkspecs/modules/qt_KNotifications.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KNTLM.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KParts.pri:
-../../../../local/lib/qt5/mkspecs/modules/qt_KPlotting.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KQuickImageEditor.pri:
+../../../../local/lib/qt5/mkspecs/modules/qt_KRunner.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KScreen.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KService.pri:
+../../../../local/lib/qt5/mkspecs/modules/qt_KSyntaxHighlighting.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KTextWidgets.pri:
-../../../../local/lib/qt5/mkspecs/modules/qt_KUnitConversion.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KWallet.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandClient.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_KWaylandServer.pri:
@@ -902,6 +901,7 @@ Makefile: override.pro ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.con
 ../../../../local/lib/qt5/mkspecs/modules/qt_SonnetCore.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_SonnetUi.pri:
 ../../../../local/lib/qt5/mkspecs/modules/qt_Syndication.pri:
+../../../../local/lib/qt5/mkspecs/modules/qt_ThreadWeaver.pri:
 ../../../../local/lib/qt5/mkspecs/features/qt_functions.prf:
 ../../../../local/lib/qt5/mkspecs/features/qt_config.prf:
 ../../../../local/lib/qt5/mkspecs/freebsd-clang/qmake.conf:

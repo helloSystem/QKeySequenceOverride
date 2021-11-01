@@ -32,12 +32,19 @@ typedef QString (*orig_func_f_type)(const QKeySequence *, QKeySequence::Sequence
 
 QString QKeySequence::toString(SequenceFormat format) const
 {
-
+    
     // Use some nuts function pointer black magic to access the original function
     orig_func_f_type orig_func;
     orig_func = (orig_func_f_type)dlsym(RTLD_NEXT, FUNC_SYMBOL);
     QString result = orig_func(this, format);
-    
+
+    // The key sequence is wanted in a "portable" format,
+    // suitable for reading and writing to a file.
+    // Do not rewrite this.
+    if (format == 1) {
+        return(result);
+    }
+        
     // Replacements based on table from
     // https://github.com/qt/qtbase/blob/7dd81686e8e9ee86624c5bcca10688cfb360dcb8/src/gui/kernel/qkeysequence.cpp#L73-L94
     result.replace(QCoreApplication::translate("QShortcut", "Esc"), QChar(0x238B));
