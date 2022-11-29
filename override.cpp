@@ -64,8 +64,8 @@ QString QKeySequence::toString(SequenceFormat format) const
     result.replace(QCoreApplication::translate("QShortcut", "PgDown"), QChar(0x21DF));
     result.replace(QCoreApplication::translate("QShortcut", "Shift"), QChar(kShiftUnicode));
     result.replace(QCoreApplication::translate("QShortcut", "Ctrl"), QChar(kCommandUnicode));
-    result.replace(QCoreApplication::translate("QShortcut", "Meta"), QChar(kControlUnicode));
-    result.replace(QCoreApplication::translate("QShortcut", "Alt"), QChar(kOptionUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "Meta"), QChar(kOptionUnicode));
+    result.replace(QCoreApplication::translate("QShortcut", "Alt"), QCoreApplication::translate("QShortcut", "Ctrl"));
     result.replace(QCoreApplication::translate("QShortcut", "CapsLock"), QChar(0x21EA));
     
     result.replace("++", "_PLUS_");
