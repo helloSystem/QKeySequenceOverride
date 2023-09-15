@@ -1,76 +1,80 @@
-#include <QApplication>
-#include <QKeySequence>
-#include <QDebug>
-
-#include <QtGui/qtguiglobal.h>
-#include <QtCore/qstring.h>
-#include <QtCore/qobjectdefs.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstdlib>
-
+class QString;
+class QChar;
 #define _GNU_SOURCE
 #include <dlfcn.h>
-
-// Override
-// QString toString(SequenceFormat format = PortableText) const;
-// which is defined in /usr/local/include/qt5/QtGui/qkeysequence.h
-// and is implemented in
-// https://github.com/qt/qtbase/blob/7dd81686e8e9ee86624c5bcca10688cfb360dcb8/src/gui/kernel/qkeysequence.cpp#L1666-L1678
-
-// Found this by running
-// strings /usr/local/lib/qt5/* | grep KeySeq | grep tring | sort | uniq
-const char* FUNC_SYMBOL = "_ZNK12QKeySequence8toStringENS_14SequenceFormatE";
-
+#include <QKeySequence>
+typedef QString (*orig_func_f_qstring_from_qchars)(const ushort * unicode, int size);
+typedef QString (*orig_func_f_translate)(const char * context, const char * key, const char * disambiguation, int n);
+typedef QString (*orig_func_f_type2)(QString *, QString const&, QString const&, Qt::CaseSensitivity);
+typedef QString& (*orig_func_f_type3)(QString * ,const QString * before, const QString* after, Qt::CaseSensitivity cs);
+typedef QString (*orig_func_f_type)(const QKeySequence *, QKeySequence::SequenceFormat format);
 static const int kShiftUnicode = 0x21E7;
-static const int kControlUnicode = 0x2303;
 static const int kOptionUnicode = 0x2325;
 static const int kCommandUnicode = 0x2318;
+#define my_replace_char(b,a) do { \
+		QString before= orig_func_t("QShortcut",b,0,1);\
+		QString after = QString(QChar(a));\
+		orig_func3(&result,&before,&after,Qt::CaseInsensitive);\
+} while(0);
 
-typedef QString (*orig_func_f_type)(const QKeySequence *, QKeySequence::SequenceFormat format);
 
-QString QKeySequence::toString(SequenceFormat format) const
-{
-    
-    // Use some nuts function pointer black magic to access the original function
+QString QKeySequence::toString(SequenceFormat format) const {
+Dl_info *info = (Dl_info*)malloc(sizeof(Dl_info));
     orig_func_f_type orig_func;
-    orig_func = (orig_func_f_type)dlsym(RTLD_NEXT, FUNC_SYMBOL);
-    QString result = orig_func(this, format);
-
+void *ap = dlsym(RTLD_NEXT, "_ZNK12QKeySequence8toStringENS_14SequenceFormatE");
+dladdr(ap,info);
+    orig_func = (orig_func_f_type)ap;
     // The key sequence is wanted in a "portable" format,
     // suitable for reading and writing to a file.
     // Do not rewrite this.
+        QString result =  orig_func(this,format);
     if (format == 1) {
         return(result);
     }
-        
-    // Replacements based on table from
-    // https://github.com/qt/qtbase/blob/7dd81686e8e9ee86624c5bcca10688cfb360dcb8/src/gui/kernel/qkeysequence.cpp#L73-L94
-    result.replace(QCoreApplication::translate("QShortcut", "Esc"), QChar(0x238B));
-    result.replace(QCoreApplication::translate("QShortcut", "Tab"), QChar(0x21E5));    
-    result.replace(QCoreApplication::translate("QShortcut", "Backtab"), QChar(0x21E4));
-    result.replace(QCoreApplication::translate("QShortcut", "Backspace"), QChar(0x232B));
-    result.replace(QCoreApplication::translate("QShortcut", "Return"), QChar(0x21B5));
-    result.replace(QCoreApplication::translate("QShortcut", "Enter"), QChar(0x2324));    
-    result.replace(QCoreApplication::translate("QShortcut", "Del"), QChar(0x2326));
-    result.replace(QCoreApplication::translate("QShortcut", "Home"), QChar(0x2196));
-    result.replace(QCoreApplication::translate("QShortcut", "End"), QChar(0x2198));
-    result.replace(QCoreApplication::translate("QShortcut", "Left"), QChar(0x2190));    
-    result.replace(QCoreApplication::translate("QShortcut", "Up"), QChar(0x2191));
-    result.replace(QCoreApplication::translate("QShortcut", "Right"), QChar(0x2192));
-    result.replace(QCoreApplication::translate("QShortcut", "Down"), QChar(0x2193));
-    result.replace(QCoreApplication::translate("QShortcut", "PgUp"), QChar(0x21DE));    
-    result.replace(QCoreApplication::translate("QShortcut", "PgDown"), QChar(0x21DF));
-    result.replace(QCoreApplication::translate("QShortcut", "Shift"), QChar(kShiftUnicode));
-    result.replace(QCoreApplication::translate("QShortcut", "Ctrl"), QChar(kCommandUnicode));
-    result.replace(QCoreApplication::translate("QShortcut", "Meta"), QChar(kOptionUnicode));
-    result.replace(QCoreApplication::translate("QShortcut", "Alt"), QCoreApplication::translate("QShortcut", "Ctrl"));
-    result.replace(QCoreApplication::translate("QShortcut", "CapsLock"), QChar(0x21EA));
-    
-    result.replace("++", "_PLUS_");
-    result.replace("+", "");    
-    result.replace("_PLUS_", "+");
-    
-    return(result);
+        orig_func_f_type3 orig_func3;
+        orig_func3 = (orig_func_f_type3)dlsym(RTLD_DEFAULT,"_ZN7QString7replaceERKS_S1_N2Qt15CaseSensitivityE");
+        if(strstr(info->dli_fname,"/qt6/"))  {
+
+}else {
+}
+
+
+orig_func_f_translate orig_func_t;
+		orig_func_t =(orig_func_f_translate) dlsym(RTLD_DEFAULT,"_ZN16QCoreApplication9translateEPKcS1_S1_i");
+		my_replace_char("Esc",0x238B);
+		my_replace_char("Tab",0x21E5);
+		my_replace_char("Backtab",0x21E4);
+		my_replace_char("Backspace",0x232B);
+		my_replace_char("Return",0x21B5);
+		my_replace_char("Enter",0x2324);
+		my_replace_char("Del",0x2326);
+		my_replace_char("Home",0x2196);
+		my_replace_char("End",0x2198);
+		my_replace_char("Left",0x2190);
+		my_replace_char("Up",0x2191);
+		my_replace_char("Right",0x2192);
+		my_replace_char("Down",0x2193);
+		my_replace_char("PgUp",0x21DE);
+		my_replace_char("PgDown",0x21DF);
+		my_replace_char("Shift",kShiftUnicode);
+		my_replace_char("Ctrl",kCommandUnicode);
+		my_replace_char("Meta",kOptionUnicode);
+		my_replace_char("CapsLock",0x21EA);
+		QString before= orig_func_t("QShortCut","Alt",0,0);
+		QString after= orig_func_t("QShortCut","Ctrl",0,0);
+		orig_func3(&result,&before,&after,Qt::CaseInsensitive);
+		return result;
+
+}
+
+void QArrayData::deallocate(QArrayData *data, qsizetype objectSize,
+        qsizetype alignment) noexcept
+{
+    // Alignment is a power of two
+    Q_ASSERT(alignment >= qsizetype(alignof(QArrayData))
+            && !(alignment & (alignment - 1)));
+    Q_UNUSED(objectSize);
+    Q_UNUSED(alignment);
+    ::free(
+data);
 }
