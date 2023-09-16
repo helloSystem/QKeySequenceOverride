@@ -12,7 +12,7 @@ On FreeBSD:
 cd QKeySequenceOverride
 mkdir build
 cd build
-qmake ..
+qmake6 ..
 make
 env LD_PRELOAD=$(readlink -f libQKeySequenceOverride.so.1.0.0) menubar
 ```
