@@ -11,10 +11,8 @@ On FreeBSD:
 ```
 cd QKeySequenceOverride
 mkdir build
-cd build
-sh -ex ../build.sh
-make
-env LD_PRELOAD=$(readlink -f libQKeySequenceOverride.so.1.0.0) menubar
+./build.sh
+env LD_PRELOAD=$(readlink -f build/libQKeySequenceOverride.so.1.0.0) menubar
 ```
 
 ## LD_PRELOAD
