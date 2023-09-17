@@ -3,11 +3,10 @@ class QChar;
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <QKeySequence>
-typedef QString (*orig_func_f_qstring_from_qchars)(const ushort * unicode, int size);
 typedef QString (*orig_func_f_translate)(const char * context, const char * key, const char * disambiguation, int n);
-typedef QString (*orig_func_f_type2)(QString *, QString const&, QString const&, Qt::CaseSensitivity);
-typedef QString& (*orig_func_f_type3)(QString * ,const QString * before, const QString* after, Qt::CaseSensitivity cs);
+typedef QString& (*orig_func_f_type_replace)(QString * ,const QString * before, const QString* after, Qt::CaseSensitivity cs);
 typedef QString (*orig_func_f_type)(const QKeySequence *, QKeySequence::SequenceFormat format);
+typedef QString (*orig_func_f_type4)(const QChar * unicode, int size);
 static const int kShiftUnicode = 0x21E7;
 static const int kOptionUnicode = 0x2325;
 static const int kCommandUnicode = 0x2318;
@@ -31,11 +30,14 @@ dladdr(ap,info);
     if (format == 1) {
         return(result);
     }
-        orig_func_f_type3 orig_func3;
-        orig_func3 = (orig_func_f_type3)dlsym(RTLD_DEFAULT,"_ZN7QString7replaceERKS_S1_N2Qt15CaseSensitivityE");
-        if(strstr(info->dli_fname,"/qt6/"))  {
+        orig_func_f_type_replace orig_func3;
+        orig_func3 = (orig_func_f_type_replace)dlsym(RTLD_DEFAULT,"_ZN7QString7replaceERKS_S1_N2Qt15CaseSensitivityE");
 
+	orig_func_f_type4 orig_func4;
+        if(strstr(info->dli_fname,"/qt6/"))  {
+	orig_func4 = (orig_func_f_type4)dlsym(RTLD_DEFAULT,"_ZN7QStringC1EPK5QCharx");
 }else {
+	orig_func4 = (orig_func_f_type4)dlsym(RTLD_DEFAULT,"_ZN7QStringC1EPK5QChari");
 }
 
 
@@ -63,6 +65,16 @@ orig_func_f_translate orig_func_t;
 		QString before= orig_func_t("QShortCut","Alt",0,0);
 		QString after= orig_func_t("QShortCut","Ctrl",0,0);
 		orig_func3(&result,&before,&after,Qt::CaseInsensitive);
+		const   QChar  plusplus[2]= {'+','+'};
+		const QChar empty[0];
+		QString  plus= QChar('+');
+		const QChar placeholder[6]= {'_','P','L','U','S','_'};
+		QString plusplusstr = orig_func4(&plusplus[0],2);
+		QString placeholderstr = orig_func4(&placeholder[0],6);
+		QString emptystr = orig_func4(&empty[0],0);
+		orig_func3(&result,&plusplusstr,&placeholderstr,Qt::CaseInsensitive);
+		orig_func3(&result,&plus,&emptystr,Qt::CaseInsensitive);
+		orig_func3(&result,&placeholderstr,&plus,Qt::CaseInsensitive);
 		return result;
 
 }
